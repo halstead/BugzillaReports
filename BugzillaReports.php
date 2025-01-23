@@ -162,7 +162,7 @@ class BugzillaReports extends BMWExtension {
     /**
      * Add CSS and Javascript to output
      */
-    $this->parser->getOutput()->addModules('ext.bugzillareports');
+    $this->parser->getOutput()->addModules(['ext.bugzillareports']);
 
     $this->debug && $this->debug("Rendering BugzillaReports");
     return $this->query->render().$this->getWarnings();
@@ -170,7 +170,9 @@ class BugzillaReports extends BMWExtension {
   
   protected function disableCache() {
     $this->debug && $this->debug("Disabling parser cache for this page");
-    $this->parser->disableCache();
+    global $wgOut;
+    $this->parser->getOutput()->updateCacheExpiry( 0 );
+    $wgOut->disableClientCache();
   }
 
   #
