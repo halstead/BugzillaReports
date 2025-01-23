@@ -94,6 +94,7 @@ class BugzillaQuery extends BSQLQuery {
     'verified'      => 'field-date',
     'votes'         => 'field-number',
     'work'          => 'field-number',
+    'whiteboard'    => 'field',
     'zeroasblank'   => 'boolean'    # Render "0" as blank, if false rendered as "0" (default=true)
   );
   var $defaultParameters=array (
@@ -132,6 +133,7 @@ class BugzillaQuery extends BSQLQuery {
     'keyworddefs.name'    => 'Keywords',
     'id'          => 'ID',
     'milestone'   => 'Milestone',
+    'whiteboard'  => 'Whiteboard',
     'modified'    => 'Modified',
     'os'          => 'OS',
     'product'     => 'Product',
@@ -178,6 +180,7 @@ class BugzillaQuery extends BSQLQuery {
     'from'        => 'reporterprofiles.login_name',
     'keywords'    => 'keyworddefs.name',
     'milestone'   => 'target_milestone',
+    'whiteboard'  => 'status_whiteboard',
     'modified'    => 'lastdiffed',
     'product'     => 'products.name',
     'os'          => 'op_sys',
@@ -198,6 +201,7 @@ class BugzillaQuery extends BSQLQuery {
     'hardware'    => 'rep_platform',
     'id'          => 'bug_id',  
     'milestone'   => 'target_milestone',
+    'whiteboard'  => 'status_whiteboard',
     'os'          => 'op_sys',
     'qa'          => 'qa_contact',
     'severity'    => 'bug_severity',
@@ -612,6 +616,9 @@ class BugzillaQuery extends BSQLQuery {
     }
     if ($this->isRequired("os")) {
       $sql.=", op_sys as os";
+    }
+    if ($this->isRequired("whiteboard")) {
+      $sql.=", status_whiteboard as whiteboard";
     }
     #
     # Priority always required because it used as class name for bug row
